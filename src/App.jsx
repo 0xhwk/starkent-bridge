@@ -51,19 +51,23 @@ function App() {
     contractAddress: config.contractAddress,
     functionName: config.depositFunctionName,
     msgValue:
-      BigInt(ethers.parseEther(inputValue ? inputValue : "0")) +
-      BigInt(ethers.parseEther("0.00005")),
-    params: [
-      BigInt(ethers.parseEther(inputValue ? inputValue : "0")) +
-        BigInt(ethers.parseEther("0.00005")),
-      address,
-    ],
+      ethers.parseEther(inputValue ? inputValue : "0") +
+      ethers.parseEther("0.000005"),
+
+    params: {
+      amount:
+        ethers.parseEther(inputValue ? inputValue : "0") +
+        ethers.parseEther("0.000005"),
+
+      starknetWallet: parseInt(address),
+    },
   });
-  // console.log(ethers.parseEther("0.21"));
+
   console.log(
-    BigInt(ethers.parseEther(inputValue ? inputValue : "0")) +
-      BigInt(ethers.parseEther("0.00005"))
+    ethers.parseEther(inputValue ? inputValue : "0") +
+      ethers.parseEther("0.000005")
   );
+  // console.log(ethers.formatEther());
   //ARGENTX OR BRAAVOS CONNECTION
   const renderStarknetConnect = () => {
     if (status === "connected") {
@@ -147,11 +151,20 @@ function App() {
         </button>
       );
     }
-    if (inputValue >= metamaskBalance) {
-      return <button className="send-button">Balance Exceeded !</button>;
-    } else
+    // if (inputValue >= metamaskBalance) {
+    //   return <button className="send-button">Balance Exceeded !</button>;
+    // }
+    else
       return (
-        <button onClick={async () => send()} className="send-button">
+        <button
+          onClick={async () =>
+            send({
+              onSuccess: console.log("sccs"),
+              onError: (e) => console.log(e),
+            })
+          }
+          className="send-button"
+        >
           Send
         </button>
       );
