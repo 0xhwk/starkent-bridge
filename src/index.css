@@ -185,6 +185,7 @@ button:hover {
   flex-direction: column;
   justify-content: space-around;
   padding: 2%;
+  gap: 15px;
   background-color: rgba(0, 0, 0, 0.124);
   border-radius: 5%;
 }
@@ -245,4 +246,7 @@ button:hover {
 .balance {
   color: #efefef;
   font-size: 80%;
+}
+.balance:hover {
+  cursor: pointer;
 }
