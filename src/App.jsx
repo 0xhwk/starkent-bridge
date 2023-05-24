@@ -41,6 +41,10 @@ function App() {
     });
   }, []);
   // SEND TO STARKNET TX
+  const ether1 = ethers.utils.parseEther(inputValue ? inputValue : "0");
+  const ether2 = ethers.utils.parseEther("0.000005");
+  const toplam = ether1.add(ether2);
+  const bigIntAddr = address ? BigInt(address) : "";
   const {
     runContractFunction: send,
     data: enterTxResponse,
@@ -50,18 +54,13 @@ function App() {
     abi: config.abi,
     contractAddress: config.contractAddress,
     functionName: config.depositFunctionName,
-    msgValue: ethers.utils
-      .parseEther(inputValue ? inputValue : "0")
-      .add(ethers.utils.parseUnits("0.000005", "ether")),
+    msgValue: toplam,
     params: {
-      amount: ethers.utils
-        .parseEther(inputValue ? inputValue : "0")
-        .add(ethers.utils.parseUnits("0.000005", "ether")),
-      starknetWallet: parseInt(address),
+      amount: toplam,
+      starknetWallet: bigIntAddr,
     },
   });
-
-  // console.log(ethers.formatEther());
+  console.log();
   //ARGENTX OR BRAAVOS CONNECTION
   const renderStarknetConnect = () => {
     if (status === "connected") {
