@@ -2,10 +2,12 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  background: linear-gradient(270deg, #292c6c, #524f8d, #8d4f8b);
+  background-size: 600% 600%;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  -webkit-animation: AnimationName 16s ease infinite;
+  -moz-animation: AnimationName 16s ease infinite;
+  animation: AnimationName 16s ease infinite;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,19 +16,83 @@
   -webkit-text-size-adjust: 100%;
 }
 * {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 100%;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+h1 {
+  display: flex;
+  font-size: 150%;
+  height: 5vh;
+  background: -webkit-linear-gradient(6deg, #f6633c, #b9a1fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+button {
+  border: none;
+}
+img {
+  height: 100%;
 
+  object-fit: contain;
+}
+svg {
+  height: 100%;
+
+  object-fit: contain;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 .header {
   height: 10vh;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 15px;
+  justify-content: space-between;
+  gap: 50px;
   padding: 2vh 5vh;
+}
+.header-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  gap: 15px;
 }
 .connect-item {
   display: flex;
@@ -36,12 +102,73 @@
   width: 100%;
 }
 .connect-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
   height: 100%;
+  width: 100%;
+  min-width: 200px;
+  max-width: 30vw;
+  border-radius: 15px;
+}
+.connect-button-stark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  height: 200%;
+  width: 100%;
+  padding: 5%;
+  min-width: 200px;
+}
+button:hover {
+  filter: brightness(0.9);
+}
+.starknet-container {
+  height: 100%;
+  width: 100%;
   padding: 1%;
   min-width: 250px;
 }
 .connect-container {
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.starknet-connectors {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  max-width: 30vw;
+  min-width: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #efefef;
+  border-radius: 15px;
+}
+
+.starknet-dropdown {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 20vh;
+  left: 0;
+  z-index: 1;
+  display: none;
+}
+.starknet-connectors:hover {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.starknet-connectors:hover .starknet-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 .container {
   width: 100%;
@@ -54,20 +181,31 @@
 .box {
   width: 45vw;
   height: 55vh;
-  border: white 1px solid;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   padding: 2%;
+  background-color: rgba(0, 0, 0, 0.124);
+  border-radius: 5%;
 }
 .start {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
+  flex-direction: column;
+  padding: 5%;
+  background-color: rgba(0, 0, 0, 0.124);
+  border-radius: 15px;
 }
 .input {
   width: 100%;
-  height: 4vh;
+  height: 9vh;
+  font-size: 3vh;
+  padding: 5%;
+  border-radius: 15px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.124);
+  color: #efefef;
 }
 .from {
   display: flex;
@@ -84,8 +222,27 @@
   align-items: left;
   width: 100%;
   gap: 15px;
+  padding: 5%;
+  background-color: rgba(0, 0, 0, 0.124);
+  border-radius: 15px;
 }
 .send-button {
   width: 100%;
-  height: 4vh;
+  height: 6vh;
+  border-radius: 5px;
+  transition: 0.3s ease;
+  border: none;
+}
+.send-error {
+  background-color: #f6633c;
+  border: 1px rgb(238, 93, 93) solid;
+  color: #efefef;
+}
+.send-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-5%);
+}
+.balance {
+  color: #efefef;
+  font-size: 80%;
 }
