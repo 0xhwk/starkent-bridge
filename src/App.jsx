@@ -3,7 +3,7 @@ import { useMoralis, useWeb3Contract } from "react-moralis";
 import "./index.css";
 import config from "./Constants/config.json";
 import { useAccount, useConnectors } from "@starknet-react/core";
-import { ethers, toBeHex } from "ethers";
+import { ethers } from "ethers";
 
 function App() {
   const { address, status } = useAccount();
@@ -50,23 +50,17 @@ function App() {
     abi: config.abi,
     contractAddress: config.contractAddress,
     functionName: config.depositFunctionName,
-    msgValue:
-      ethers.parseEther(inputValue ? inputValue : "0") +
-      ethers.parseEther("0.000005"),
-
+    msgValue: ethers.utils
+      .parseEther(inputValue ? inputValue : "0")
+      .add(ethers.utils.parseUnits("0.000005", "ether")),
     params: {
-      amount:
-        ethers.parseEther(inputValue ? inputValue : "0") +
-        ethers.parseEther("0.000005"),
-
+      amount: ethers.utils
+        .parseEther(inputValue ? inputValue : "0")
+        .add(ethers.utils.parseUnits("0.000005", "ether")),
       starknetWallet: parseInt(address),
     },
   });
 
-  console.log(
-    ethers.parseEther(inputValue ? inputValue : "0") +
-      ethers.parseEther("0.000005")
-  );
   // console.log(ethers.formatEther());
   //ARGENTX OR BRAAVOS CONNECTION
   const renderStarknetConnect = () => {
@@ -184,14 +178,14 @@ function App() {
   useEffect(() => {
     const getEtherBalance = async () => {
       if (account) {
-        const provider = new ethers.BrowserProvider(window.ethereum);
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
 
         const walletAddress = account;
 
         try {
           const balance = await provider.getBalance(walletAddress);
 
-          const etherBalance = ethers.formatEther(balance);
+          const etherBalance = ethers.utils.formatEther(balance);
           setMetamaskBalance(etherBalance);
         } catch (error) {
           console.log("Error fetching balance:", error);
