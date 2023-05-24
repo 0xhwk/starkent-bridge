@@ -1,0 +1,54 @@
+{
+  "chainId": 1,
+  "contractAddress": "0x89a2bc8ffe97f7e37261f98a562c499e95dc3733",
+  "depositFunctionName": "callDeposit",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_starknetBridgeAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        { "internalType": "uint256", "name": "amount", "type": "uint256" },
+        {
+          "internalType": "uint256",
+          "name": "starknetWallet",
+          "type": "uint256"
+        }
+      ],
+      "name": "callDeposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        { "internalType": "address payable", "name": "", "type": "address" }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "starknetBridge",
+      "outputs": [
+        {
+          "internalType": "contract IStarknetBridge",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

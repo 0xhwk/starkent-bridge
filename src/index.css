@@ -1,0 +1,91 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  height: 10vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 2vh 5vh;
+}
+.connect-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.connect-button {
+  height: 100%;
+  padding: 1%;
+  min-width: 250px;
+}
+.connect-container {
+  height: 100%;
+}
+.container {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.box {
+  width: 45vw;
+  height: 55vh;
+  border: white 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 2%;
+}
+.start {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.input {
+  width: 100%;
+  height: 4vh;
+}
+.from {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 100%;
+  gap: 15px;
+}
+.to {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  width: 100%;
+  gap: 15px;
+}
+.send-button {
+  width: 100%;
+  height: 4vh;
+}
