@@ -173,7 +173,21 @@ function App() {
   //SEND BUTTON
   const renderSendButton = () => {
     if (!account || !address) {
-      return <button className="send-button send-error">Connect Wallet</button>;
+      return (
+        <button
+          onClick={async () => {
+            await enableWeb3();
+            window.starknet_argentX
+              ? connect(connectors[0])
+              : window.starknet_braavos
+              ? connect(connectors[1])
+              : console.log("no starknet wallet :/");
+          }}
+          className="send-button send-error"
+        >
+          Connect Wallet
+        </button>
+      );
     }
     if (userChainId !== 1) {
       return (
