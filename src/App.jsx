@@ -47,7 +47,7 @@ function App() {
   }, []);
   // SEND TO STARKNET TX
   const userValue = ethers.utils.parseEther(inputValue ? inputValue : "0");
-  const addedWei = ethers.utils.parseEther("0.00005");
+  const addedWei = ethers.utils.parseUnits("1", "wei");
   const total = userValue.add(addedWei);
   const bigIntAddress = address ? BigInt(address) : "";
   // TX CALL
