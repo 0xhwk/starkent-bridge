@@ -62,7 +62,7 @@ function App() {
     functionName: config.depositFunctionName,
     msgValue: total,
     params: {
-      amount: total,
+      amount: userValue,
       l2Recipient: bigIntAddress,
     },
   });
