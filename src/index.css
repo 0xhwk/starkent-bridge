@@ -2,7 +2,26 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background: linear-gradient(270deg, #292c6c, #524f8d, #8d4f8b);
+  background: rgb(41, 44, 108);
+  background: -moz-linear-gradient(
+    270deg,
+    rgba(41, 44, 108, 1) 0%,
+    rgba(82, 79, 141, 1) 51%,
+    rgba(141, 79, 139, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    270deg,
+    rgba(41, 44, 108, 1) 0%,
+    rgba(82, 79, 141, 1) 51%,
+    rgba(141, 79, 139, 1) 100%
+  );
+  background: linear-gradient(
+    270deg,
+    rgba(41, 44, 108, 1) 0%,
+    rgba(82, 79, 141, 1) 51%,
+    rgba(141, 79, 139, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#292c6c",endColorstr="#8d4f8b",GradientType=1);
   background-size: 600% 600%;
 
   -webkit-animation: bgAnimation1 16s ease infinite;
