@@ -10,6 +10,8 @@ import { ReactComponent as EthLogo } from "./assets/eth.svg";
 import { ReactComponent as StarknetLogo } from "./assets/starknet.svg";
 import { ReactComponent as SignoutIcon } from "./assets/signout.svg";
 import onnitLogo from "./assets/onnit.webp";
+import { motion } from "framer-motion";
+
 function App() {
   const { address, status } = useAccount();
   const { connect, connectors, disconnect, refresh } = useConnectors();
@@ -136,7 +138,7 @@ function App() {
   //METAMASK CONNECTION
   const renderMetamaskConnect = () => {
     if (isWeb3EnableLoading) {
-      return <button>Loading</button>;
+      return <button className="connect-button">Loading..</button>;
     }
     if (!account) {
       return (
@@ -193,7 +195,6 @@ function App() {
         <button
           onClick={async () =>
             send({
-              onSuccess: console.log("sccs"),
               onError: (e) => console.log(e),
             })
           }
@@ -251,9 +252,7 @@ function App() {
                 From: Ethereum Mainnet <EthLogo></EthLogo>
               </h1>
               <div
-                onClick={() =>
-                  setInputValue(String(Number(metamaskBalance) - 0.00005))
-                }
+                onClick={() => setInputValue(metamaskBalance)}
                 className="balance"
               >
                 Balance:{metamaskBalance.slice(0, 8)}
@@ -274,6 +273,20 @@ function App() {
           </div>
         </div>
       </div>
+      <motion.a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://twitter.com/codeesura"
+        drag
+        className="social codeesura"
+      ></motion.a>
+      <motion.a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://twitter.com/YAA_HAWK"
+        drag
+        className="social hwk"
+      ></motion.a>
     </>
   );
 }

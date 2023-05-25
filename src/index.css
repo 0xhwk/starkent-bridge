@@ -5,9 +5,9 @@
   background: linear-gradient(270deg, #292c6c, #524f8d, #8d4f8b);
   background-size: 600% 600%;
 
-  -webkit-animation: AnimationName 16s ease infinite;
-  -moz-animation: AnimationName 16s ease infinite;
-  animation: AnimationName 16s ease infinite;
+  -webkit-animation: bgAnimation1 16s ease infinite;
+  -moz-animation: bgAnimation2 16s ease infinite;
+  animation: bgAnimation3 16s ease infinite;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,16 +24,20 @@
 }
 h1 {
   display: flex;
-  font-size: 150%;
+  font-size: 3vh;
   height: 5vh;
   background: -webkit-linear-gradient(6deg, #f6633c, #b9a1fb);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+div {
+  font-size: 1.8vh;
+}
 button {
   border: none;
 }
 img {
+  display: block;
   height: 100%;
 
   object-fit: contain;
@@ -44,7 +48,7 @@ svg {
   object-fit: contain;
 }
 
-@-webkit-keyframes AnimationName {
+@-webkit-keyframes bgAnimation1 {
   0% {
     background-position: 0% 50%;
   }
@@ -55,7 +59,7 @@ svg {
     background-position: 0% 50%;
   }
 }
-@-moz-keyframes AnimationName {
+@-moz-keyframes bgAnimation2 {
   0% {
     background-position: 0% 50%;
   }
@@ -66,7 +70,7 @@ svg {
     background-position: 0% 50%;
   }
 }
-@keyframes AnimationName {
+@keyframes bgAnimation3 {
   0% {
     background-position: 0% 50%;
   }
@@ -85,6 +89,7 @@ svg {
   justify-content: space-between;
   gap: 50px;
   padding: 2vh 5vh;
+  z-index: 2;
 }
 .header-buttons {
   display: flex;
@@ -105,10 +110,9 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
   height: 100%;
   width: 100%;
-  min-width: 200px;
+  min-width: 250px;
   max-width: 30vw;
   border-radius: 15px;
 }
@@ -128,7 +132,6 @@ button:hover {
 .starknet-container {
   height: 100%;
   width: 100%;
-  padding: 1%;
   min-width: 250px;
 }
 .connect-container {
@@ -141,13 +144,13 @@ button:hover {
   position: relative;
   height: 100%;
   width: 100%;
+  min-width: 200px;
   max-width: 30vw;
-  min-width: 250px;
+  border-radius: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #efefef;
-  border-radius: 15px;
 }
 
 .starknet-dropdown {
@@ -183,11 +186,12 @@ button:hover {
   height: 55vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 2%;
   gap: 15px;
   background-color: rgba(0, 0, 0, 0.124);
   border-radius: 5%;
+  z-index: 2;
 }
 .start {
   display: flex;
@@ -197,6 +201,7 @@ button:hover {
   padding: 5%;
   background-color: rgba(0, 0, 0, 0.124);
   border-radius: 15px;
+  height: 12vh;
 }
 .input {
   width: 100%;
@@ -215,6 +220,7 @@ button:hover {
   align-items: left;
   width: 100%;
   gap: 15px;
+  height: 25vh;
 }
 .to {
   display: flex;
@@ -246,7 +252,83 @@ button:hover {
 .balance {
   color: #efefef;
   font-size: 80%;
+  height: 100%;
 }
 .balance:hover {
   cursor: pointer;
+}
+
+.social {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+
+  transition: 0.3s ease;
+
+  box-shadow: 1px 1px 10px #f6643ca3;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.social:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 15px #f6643cd2;
+}
+.hwk {
+  top: 15%;
+  left: 8%;
+  background-image: url("./assets/hwk.webp");
+  animation: hwk 30s infinite ease-in-out;
+}
+.codeesura {
+  top: 75%;
+  left: 90%;
+  background-image: url("./assets/codeesura.webp");
+  animation: codeesura 29s infinite ease-in-out;
+}
+@keyframes hwk {
+  0% {
+    top: 15%;
+    left: 8%;
+  }
+  25% {
+    top: 72%;
+    left: 24%;
+  }
+  50% {
+    top: 82%;
+    left: 82%;
+  }
+  75% {
+    top: 68%;
+    left: 81%;
+  }
+  100% {
+    top: 15%;
+    left: 8%;
+  }
+}
+@keyframes codeesura {
+  0% {
+    top: 73%;
+    left: 78%;
+  }
+  25% {
+    top: 23%;
+    left: 90%;
+  }
+  50% {
+    top: 75%;
+    left: 90%;
+  }
+  75% {
+    top: 62%;
+    left: 36%;
+  }
+  100% {
+    top: 23%;
+    left: 78%;
+  }
 }
