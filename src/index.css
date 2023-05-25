@@ -115,6 +115,7 @@ svg {
   min-width: 250px;
   max-width: 30vw;
   border-radius: 15px;
+  padding: 0 30px;
 }
 .connect-button-stark {
   display: flex;
@@ -151,6 +152,7 @@ button:hover {
   justify-content: center;
   align-items: center;
   background-color: #efefef;
+  padding: 0 30px;
 }
 
 .starknet-dropdown {
@@ -201,7 +203,7 @@ button:hover {
   padding: 5%;
   background-color: rgba(0, 0, 0, 0.124);
   border-radius: 15px;
-  height: 12vh;
+  height: 100%;
 }
 .input {
   width: 100%;
@@ -328,7 +330,7 @@ button:hover {
     left: 36%;
   }
   100% {
-    top: 23%;
+    top: 73%;
     left: 78%;
   }
 }
