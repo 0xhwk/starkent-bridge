@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMoralis, useWeb3Contract } from "react-moralis";
 import "./index.css";
 import config from "./Constants/config.json";
@@ -9,10 +9,13 @@ import { ReactComponent as ArgentXLogo } from "./assets/argentx.svg";
 import { ReactComponent as EthLogo } from "./assets/eth.svg";
 import { ReactComponent as StarknetLogo } from "./assets/starknet.svg";
 import { ReactComponent as SignoutIcon } from "./assets/signout.svg";
+import { ReactComponent as ZksLogo } from "./assets/zksync-logo.svg";
+import { ReactComponent as DropdownIcon } from "./assets/dropdown.svg";
 import onnitLogo from "./assets/onnit.webp";
 import { motion } from "framer-motion";
 
 function App() {
+  const dropdownRef = useRef(null);
   const { address, status } = useAccount();
   const { connect, connectors, disconnect, refresh } = useConnectors();
   const {
@@ -27,11 +30,26 @@ function App() {
   const userChainId = parseInt(chainIdHex);
   const [inputValue, setInputValue] = useState("");
   const [gasPrice, setGasPrice] = useState(0);
+  const [maxPriorityFeePerGas, setMaxPriorityFeePerGas] = useState(0);
+  const [maxFeePerGas, setMaxFeePerGas] = useState(0);
   const [chainSelection, setchainSelection] = useState("starknet");
   const [metamaskBalance, setMetamaskBalance] = useState("0");
   const [isStarknetDropdownOpen, setisStarknetDropdownOpen] = useState(false);
   const [isChainDropdownOpen, setisChainDropdownOpen] = useState(false);
   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setisChainDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
   useEffect(() => {
     Moralis.onAccountChanged((account) => {
       if (account == null) {
@@ -67,7 +85,7 @@ function App() {
   const bigIntAddress = address ? BigInt(address) : "";
 
   const {
-    runContractFunction: send,
+    runContractFunction: sendStark,
     data: enterTxResponseStark,
     isLoadingStark,
     isFetchingStark,
@@ -82,7 +100,8 @@ function App() {
     },
   });
   //  SEND TO ZKSync Era TX
-  const calculate_zk_fee = (((17 * gasPrice + 799) / 800) * 243884) / 10 ** 18;
+  const calculate_zk_fee =
+    (((17 * gasPrice * (103 / 100) + 799) / 800) * 243884) / 10 ** 18;
   const zkUserValue = ethers.utils.parseEther(inputValue ? inputValue : "0");
   const zkAddedWei = ethers.utils.parseUnits(
     calculate_zk_fee.toFixed(18),
@@ -90,6 +109,7 @@ function App() {
   );
   const Zktotal = zkUserValue.add(zkAddedWei);
 
+  console.log(calculate_zk_fee.toString());
   const {
     runContractFunction: sendZks,
     data: enterTxResponseZks,
@@ -99,17 +119,46 @@ function App() {
     abi: config.zkBridgeAbi,
     contractAddress: config.zkBridgeContractAddress,
     functionName: config.zkBridgeDepositFunctionName,
-    msgValue: "",
+    msgValue: Zktotal,
+    options: {},
     params: {
       _contractL2: account,
       _l2Value: zkUserValue,
       _calldata: "0x00",
-      _l2GasLimit: 243885,
+      _l2GasLimit: 243884,
       _l2GasPerPubdataByteLimit: 800,
       _factoryDeps: [],
       _refundRecipient: account,
     },
   });
+
+  const gasLimitMin = 140000;
+  const gasLimitMax = 155000;
+  // async function sendZks() {
+  //   try {
+  //     const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //     const signer = provider.getSigner();
+  //     const contract = new ethers.Contract(
+  //       config.zkBridgeContractAddress,
+  //       config.zkBridgeAbi,
+  //       signer
+  //     );
+
+  //     const transaction = await contract.functions[
+  //       config.zkBridgeDepositFunctionName
+  //     ](account, zkUserValue, "0x00", 243884, 800, [], account, {
+  //       value: Zktotal,
+  //       gasLimit: gasLimitMax,
+  //       maxFeePerGas: gasPrice,
+  //       maxPriorityFeePerGas: gasPrice,
+  //     });
+
+  //     console.log(transaction);
+  //   } catch (error) {
+  //     console.error(error);
+  //     // Handle error
+  //   }
+  // }
 
   //ARGENTX OR BRAAVOS CONNECTION
   const renderStarknetConnect = () => {
@@ -284,7 +333,7 @@ function App() {
         }}
         className="chain-button"
       >
-        Starknet <StarknetLogo></StarknetLogo>
+        <h1>Starknet</h1> <StarknetLogo></StarknetLogo>
       </button>
     );
 
@@ -297,20 +346,24 @@ function App() {
         }}
         className="chain-button"
       >
-        ZkSync Era
-        <BraavosLogo></BraavosLogo>
+        <h1> ZkSync Era</h1>
+        <ZksLogo></ZksLogo>
       </button>
     );
 
     return (
       <div className="chain-options" onClick={handleDropdown}>
         {chainSelection === "starknet" ? starknetButton : zksyncEraButton}
-        {isChainDropdownOpen && (
+
+        {isChainDropdownOpen ? (
           <div className="chain-dropdown">
             {starknetButton}
             {zksyncEraButton}
           </div>
+        ) : (
+          <></>
         )}
+        <DropdownIcon></DropdownIcon>
       </div>
     );
   };
@@ -354,21 +407,24 @@ function App() {
       const lastBaseFeePerGas = receipt.lastBaseFeePerGas;
       const maxFeePerGas = receipt.maxFeePerGas;
       setGasPrice(gasPrice);
-      console.log("gasPrice : ", ethers.utils.formatUnits(gasPrice, "wei"));
-      console.log(
-        "maxPriorityFeePerGas: ",
-        ethers.utils.formatUnits(maxPriorityFeePerGas, "wei")
-      );
-      console.log(
-        "lastBaseFeePerGas ",
-        ethers.utils.formatUnits(lastBaseFeePerGas, "wei")
-      );
-      console.log(
-        "maxFeePerGas: ",
-        ethers.utils.formatUnits(maxFeePerGas, "wei")
-      );
-      console.log(chainSelection);
-      console.log(await provider.getFeeData());
+      setMaxFeePerGas(maxFeePerGas);
+      setMaxPriorityFeePerGas(maxPriorityFeePerGas);
+
+      console.log("gasPrice : ", ethers.utils.formatUnits(gasPrice, "ether"));
+      // console.log(
+      //   "maxPriorityFeePerGas: ",
+      //   ethers.utils.formatUnits(maxPriorityFeePerGas, "wei")
+      // );
+      // console.log(
+      //   "lastBaseFeePerGas ",
+      //   ethers.utils.formatUnits(lastBaseFeePerGas, "wei")
+      // );
+      // console.log(
+      //   "maxFeePerGas: ",
+      //   ethers.utils.formatUnits(maxFeePerGas, "wei")
+      // );
+      // console.log(chainSelection);
+      // console.log(await provider.getFeeData());
     }, 5000);
 
     return () => {
@@ -407,8 +463,8 @@ function App() {
             ></input>
           </div>
           <div className="to">
-            <div className="chain-container">
-              <h1>To : </h1>
+            <div ref={dropdownRef} className="chain-container">
+              <h1>To:</h1>
               {renderChainButton()}
             </div>
 
