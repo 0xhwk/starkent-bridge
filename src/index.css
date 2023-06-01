@@ -118,6 +118,9 @@ svg {
 
   gap: 15px;
 }
+.header img {
+  height: 200%;
+}
 .connect-item {
   display: flex;
   align-items: center;
@@ -309,6 +312,12 @@ button:hover {
   background-image: url("./assets/codeesura.webp");
   animation: codeesura 29s infinite ease-in-out;
 }
+.basar {
+  top: 75%;
+  left: 90%;
+  background-image: url("./assets/0xbasar.webp");
+  animation: basar 26s infinite ease-in-out;
+}
 @keyframes hwk {
   0% {
     top: 15%;
@@ -351,5 +360,27 @@ button:hover {
   100% {
     top: 73%;
     left: 78%;
+  }
+}
+@keyframes basar {
+  0% {
+    top: 22%;
+    left: 54%;
+  }
+  25% {
+    top: 68%;
+    left: 20%;
+  }
+  50% {
+    top: 93%;
+    left: 81%;
+  }
+  75% {
+    top: 37%;
+    left: 54%;
+  }
+  100% {
+    top: 22%;
+    left: 54%;
   }
 }

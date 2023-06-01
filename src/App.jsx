@@ -301,6 +301,13 @@ function App() {
         drag
         className="social hwk"
       ></motion.a>
+      <motion.a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://twitter.com/0xbasar"
+        drag
+        className="social basar"
+      ></motion.a>
     </>
   );
 }
