@@ -253,33 +253,40 @@ function App() {
     <>
       <div className="header">
         <img src={onnitLogo}></img>
+        <div className="header-buttons">
+          <div className="connect-container">{renderStarknetConnect()}</div>
+          <div className="connect-container">{renderMetamaskConnect()}</div>
+        </div>
       </div>
-
       <div className="container">
-        <h1>UNDER CONSTRUCTION</h1>
-        <div style={{ color: "whitesmoke" }}>Waiting for quantum leap...</div>
+        <div className="box">
+          <div className="from">
+            <div className="start">
+              <h1>
+                From: Ethereum Mainnet <EthLogo></EthLogo>
+              </h1>
+              <div
+                onClick={() => setInputValue(metamaskBalance)}
+                className="balance"
+              >
+                Balance:{metamaskBalance.slice(0, 8)}
+              </div>
+            </div>
+            <input
+              className="input"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="0.0"
+            ></input>
+          </div>
+          <div className="to">
+            <h1>
+              To: Starknet <StarknetLogo></StarknetLogo>
+            </h1>
+            {renderSendButton()}
+          </div>
+        </div>
       </div>
-      <motion.a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://twitter.com/codeesura"
-        drag
-        className="social codeesura"
-      ></motion.a>
-      <motion.a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://twitter.com/YAA_HAWK"
-        drag
-        className="social hwk"
-      ></motion.a>
-      <motion.a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://twitter.com/0xbasar"
-        drag
-        className="social basar"
-      ></motion.a>
     </>
   );
 }
